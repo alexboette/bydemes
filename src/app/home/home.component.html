@@ -1,0 +1,39 @@
+<div class="main-container">
+    <mat-card  class="mat-elevation-z8">
+      <mat-card-title align="end">
+        <button mat-icon-button (click)="refresh()" [disabled]="loading">
+          <mat-icon>refresh</mat-icon>
+          </button>
+        </mat-card-title>
+
+        <mat-card-content align="center">
+          <h2>Total balance</h2>
+          <div class="balance">
+            <strong>{{amount | number}} €</strong> ( = {{amount * (1 / value) | number}} BTC )
+          </div>
+          <div class="balance">
+            <strong>{{btc}} BTC</strong> ( = {{btc * value | number}} € )
+          </div>
+          <mat-form-field appearance="fill" floatLabel="always" class="transaction">
+            <mat-label>Amount</mat-label>
+            <input matInput type="number" class="right-align" placeholder="0"  [formControl]='transaction' required>
+            <span matPrefix>€&nbsp;</span>
+            <span matSuffix>.00</span>
+          </mat-form-field>
+          <mat-error *ngIf="invalidAmount">Invalid amount</mat-error>
+        </mat-card-content>
+        
+        <mat-card-subtitle align="center">
+          <div class="value">1 BTC =  {{value}} €</div>
+        </mat-card-subtitle>
+        
+        <mat-card-actions align="end">
+          <button mat-raised-button (click)="sellBtc()" [disabled]="this.transaction.hasError('required')">Sell</button>
+          <button mat-raised-button color="primary" (click)="buyBtc()" [disabled]="this.transaction.hasError('required')">Buy</button>
+        </mat-card-actions>
+
+        <mat-card-footer>
+          <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+        </mat-card-footer>
+    </mat-card>
+</div>

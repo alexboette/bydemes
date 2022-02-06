@@ -1,0 +1,38 @@
+<div class="main-container">
+    <mat-card class="mat-elevation-z8">
+        <mat-card-title>Login</mat-card-title>
+        <mat-card-subtitle>Please login into your account</mat-card-subtitle>
+        <div class="container">
+          <mat-form-field appearance="fill">
+            <mat-label>Username</mat-label>
+            <input matInput [type]="'text'" [formControl]="username" required>
+            <mat-error *ngIf="username.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" [formControl]='password' required>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="password.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+            
+        </div>
+
+          <mat-card-content>
+            Don't have an account yet? Please, sign up <a routerLink="/register">here</a>
+          </mat-card-content>
+
+          <mat-card-actions align="end">
+            <a routerLink="/register" class="register-button">
+              <button mat-raised-button>Sign up</button>
+            </a>
+            <button mat-raised-button 
+                color="primary"
+                (click)="getData()"
+                [disabled]="this.username.hasError('required') || this.password.hasError('required')"
+            >Login</button>
+          </mat-card-actions>
+    </mat-card>
+</div>

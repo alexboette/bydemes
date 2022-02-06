@@ -1,0 +1,42 @@
+<div class="main-container">
+    <mat-card class="mat-elevation-z8">
+        <mat-card-title>Sign up</mat-card-title>
+        <mat-card-subtitle>Please create a new account</mat-card-subtitle>
+        <div class="container">
+            <mat-form-field appearance="fill">
+              <mat-label>Username</mat-label>
+              <input matInput [type]="'text'" [formControl]="username" required>
+              <mat-error *ngIf="username.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Password</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" [formControl]='password' required>
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+              <mat-error *ngIf="password.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          
+            <mat-form-field appearance="fill" floatLabel="always" class="amount">
+              <mat-label>Amount</mat-label>
+              <input matInput type="number" class="right-align" placeholder="0"  [formControl]='amount' required>
+              <span matPrefix>€&nbsp;</span>
+              <span matSuffix>.00</span>
+              <mat-error *ngIf="amount.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+        </div>
+
+          <mat-card-actions align="end">
+            <a routerLink="/login" class="cancel-button">
+                <button mat-raised-button>Cancel</button>
+            </a>
+            <br/>
+            <button mat-raised-button
+              color="primary"
+              (click)="setData()"
+              [disabled]="this.username.hasError('required') || this.password.hasError('required') || this.amount.hasError('required')"
+            >Create</button>
+          </mat-card-actions>
+    </mat-card>
+</div>
